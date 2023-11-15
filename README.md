@@ -21,10 +21,62 @@ Je vous demande de rédiger votre compte rendu dans ce fichier que vous rendrez 
 ## Grammaires utilisée pour les différentes étapes
 
 Donnez ici les grammaires que vous avez utilisées pour résoudre votre problème.
+### G0
+A -> X = E ; '\n' A | ε  
+E -> X = E | E + T | E - T | T 
+T -> T * F | T / F | F   
+F -> F ^ X | G 
+G -> sin X | H 
+H -> cos X | X  
+
+X -> var | (A) | Y | pi  
+ 
+
+### G1 sans récursivité à Gauche
+A -> X = E ; '\n' A | ε  
+E -> X = E | T E'  
+E'-> + T E' | - T E' | ε  
+T -> F T'  
+T'-> * F T' | / F T' | ε  
+F -> G F'  
+F'-> ^ X | ε  
+G -> sin G | H  
+H -> cos H | X  
+
+X -> var | (A) | immediate | pi  
+
 
 ## Table LL1 calculée
 
 Donnez la table LL1 de votre grammaire.
+### Premiers  
+|   | var | ( | ) | pi | immediate | + | - | * | / | ^ | sin | cos | = | ; |   
+| A |  ♦  | ♦ |   | ♦  |     ♦     |   |   |   |   |   |     |     |   |   |  
+| E |  ♦  | ♦ |   | ♦  |     ♦     |   |   |   |   |   |     |     |   |   | 
+| E'|     |   |   |    |           | ♦ | ♦ |   |   |   |     |     |   |   |   
+| T |  ♦  | ♦ |   | ♦  |     ♦     |   |   |   |   |   |     |     |   |   |  
+| T'|     |   |   |    |           |   |   | ♦ | ♦ |   |     |     |   |   |  
+| F |  ♦  | ♦ |   | ♦  |     ♦     |   |   |   |   |   |     |     |   |   |  
+| F'|     |   |   |    |           |   |   |   |   | ♦ |     |     |   |   |  
+| G |  ♦  | ♦ |   | ♦  |     ♦     |   |   |   |   |   |  ♦  |     |   |   |  
+| H |  ♦  | ♦ |   | ♦  |     ♦     |   |   |   |   |   |     |  ♦  |   |   |  
+| X |  ♦  | ♦ |   | ♦  |     ♦     |   |   |   |   |   |     |     |   |   |  
+  
+### Suivants
+Soit S la source tel que : 
+S -> A$
+|   | var | ( | ) | pi | immediate | + | - | * | / | ^ | sin | cos | = | ; | $ 
+| A |     |   | ♦ |    |           |   |   |   |   |   |     |     |   |   | ♦  
+| E |     |   |   |    |           |   |   |   |   |   |     |     |   | ♦ |  
+| E'|     |   |   |    |           | ♦ | ♦ |   |   |   |     |     |   |   |  
+| T |     |   |   |    |           |   |   |   |   |   |     |     |   |   |  
+| T'|     |   |   |    |           |   |   | ♦ | ♦ |   |     |     |   |   |  
+| F |     |   |   |    |           |   |   |   |   |   |     |     |   |   |  
+| F'|     |   |   |    |           |   |   |   |   | ♦ |     |     |   |   |  
+| G |     |   |   |    |           |   |   |   |   |   |  ♦  |     |   |   |  
+| H |     |   |   |    |           |   |   |   |   |   |     |  ♦  |   |   |  
+| X |     |   |   |    |           |   |   |   |   |   |     |     | ♦ |   |  
+  
 
 ## Difficultés rencontrées
 
