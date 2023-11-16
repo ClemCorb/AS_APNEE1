@@ -28,7 +28,7 @@ T -> T * F | T / F | F
 F -> G ^ F | G 
 G -> sin G | cos G | X 
 
-X -> var | (A) | Y | pi  
+X -> var | (E) | Y | pi  
  
 
 ### G1 sans récursivité à Gauche
@@ -40,7 +40,7 @@ T'-> * F T' | / F T' | ε
 F -> G ^ F | G 
 G -> sin G | cos G | X   
 
-X -> var | (A) | immediate | pi  
+X -> var | (E) | immediate | pi  
 
 
 ## Table LL1 calculée
@@ -61,14 +61,13 @@ Donnez la table LL1 de votre grammaire.
 Soit S la source tel que : 
 S -> A$
 |   | var | ( | ) | pi | immediate | + | - | * | / | ^ | sin | cos | = | ; | $ 
-| A |     |   | ♦ |    |           |   |   |   |   |   |     |     |   |   | ♦  
-| E |     |   |   |    |           |   |   |   |   |   |     |     |   | ♦ |  
-| E'|     |   |   |    |           | ♦ | ♦ |   |   |   |     |     |   |   |  
-| T |     |   |   |    |           |   |   |   |   |   |     |     |   |   |  
-| T'|     |   |   |    |           |   |   | ♦ | ♦ |   |     |     |   |   |  
-| F |     |   |   |    |           |   |   |   |   |   |     |     |   |   |  
-| F'|     |   |   |    |           |   |   |   |   | ♦ |     |     |   |   |  
-| G |     |   |   |    |           |   |   |   |   |   |  ♦  |  ♦  |   |   |  
+| A |     |   |   |    |           |   |   |   |   |   |     |     |   | ♦ | ♦  
+| E |     |   | ♦ |    |           |   |   |   |   |   |     |     |   | ♦ |  
+| E'|     |   |   |    |           |   |   |   |   |   |     |     |   | ♦ |  
+| T |     |   |   |    |           | ♦ | ♦ |   |   |   |     |     |   |   |  
+| T'|     |   |   |    |           |   |   |   |   |   |     |     |   | ♦ |  
+| F |     |   |   |    |           |   |   | ♦ | ♦ |   |     |     |   |   |  
+| G |     | ♦ |   |    |           |   |   |   |   | ♦ |  ♦  |  ♦  |   |   |  
 | X |     |   |   |    |           |   |   |   |   |   |     |     | ♦ |   |  
   
 
