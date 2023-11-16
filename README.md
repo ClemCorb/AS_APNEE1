@@ -70,6 +70,38 @@ S -> A$
 | G |     | ♦ |   |    |           |   |   |   |   | ♦ |  ♦  |  ♦  |   |   |  
 | X |     |   |   |    |           |   |   |   |   |   |     |     | ♦ |   |  
   
+  ### Directeurs
+1. A -> X = E ; A
+2. A -> ε
+3. E -> X = E
+4. E -> T E'
+5. E'-> + T E'
+6. E'-> - T E'
+7. E'-> ε
+8. T -> F T'
+9. T'-> * F T'
+10. T'-> / F T'
+11. T'-> ε
+12. F -> G ^ F
+13. F -> G
+14. G -> sin G
+15. G -> cos G
+16. G -> X
+17. X -> var
+18. X -> (E)
+19. X -> immediate
+20. X -> pi
+
+|   | var | ( | ) | pi | immediate | + | - | * | / | ^ | sin | cos | = | ; | $ 
+| A | 17  |   |   | 20 |     19    |   |   |   |   |   |   |   | 1 |   | 2 |
+| E | 17  |   |   | 20 |     19    |   |   |   |   |   |   |   | 3 |   |   |
+| E'|     |   |   |    |           | 5 | 6 |   |   |   |   |   | 7 | 7 | 7 |
+| T | 17  |   |   | 20 |     19    |   |   |   |   |   |   |   | 8 |   |   |
+| T'|     |   |   |    |           |   |   | 9 | 10| 11|   |   | 11| 11| 11| 
+| F | 17  |   |   | 20 |     19    |   |   |   |   | 12|   |   | 13|   |   |
+| G | 17  |   |   | 20 |     19    |   |   |   |   |   | 14| 15| 16|   |   |
+| X | 17  | 18|   | 20 |     19    |   |   |   |   |   |   |   |   |   |   |
+
 
 ## Difficultés rencontrées
 
@@ -77,4 +109,6 @@ Si vous en avez eu...
 
 ## Remarques éventuelles
 
-Si nécessaires...
+Un document PDF pour le rendu serait plus adapté, permettant directement de mettre des "beaux" tableaux pour les Premiers, Suivants, et Directeurs
+
+
