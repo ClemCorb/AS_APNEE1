@@ -22,27 +22,24 @@ Je vous demande de rédiger votre compte rendu dans ce fichier que vous rendrez 
 
 Donnez ici les grammaires que vous avez utilisées pour résoudre votre problème.
 ### G0
-A -> X = E ;  A | E | ε  
+S -> A ; S | ε
+A -> var = A | E   
 E -> E + T | E - T | T 
 T -> T * F | T / F | F   
-F -> G ^ F | G 
-G -> sin G | cos G | X 
-
-X -> var | (A)
-Y -> immediate | pi  
+F -> F ^ G | G 
+G -> sin G | cos G | var | (A) | pi | imediate  
  
 
 ### G1 sans récursivité à Gauche (sauf pour A)
-A -> X = E ; A | E | ε  
+S -> A ; S | ε
+A -> var = E | E 
 E -> T E'  
 E'-> + T E' | - T E' | ε  
 T -> F T'  
 T'-> * F T' | / F T' | ε 
-F -> G ^ F | G 
-G -> sin G | cos G | X   
-
-X -> var | (A) 
-Y -> immediate | pi  
+F -> G F'  
+F'-> ^ G F' | ε
+G -> sin G | cos G | var | (A) | pi | imediate
 
 
 ## Table LL1 calculée
@@ -51,73 +48,75 @@ Donnez la table LL1 de votre grammaire.
 ### Premiers  
 |     | var | (   | )   | pi  | immediate | +   | -   | *   | /   | ^   | sin | cos | =   | ;   | ε   |
 | --- | --- | --- | --- | --- | --------- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| A   | ♦   | ♦   |     |     |           |     |     |     |     |     | ♦   | ♦   |     |     | ♦   |
+| S   | ♦   | ♦   |     | ♦   | ♦         |     |     |     |     |     | ♦   | ♦   |     |     | ♦   |
+| A   | ♦   | ♦   |     | ♦   | ♦         |     |     |     |     |     | ♦   | ♦   |     |     | ♦   |
 | E   | ♦   | ♦   |     | ♦   | ♦         |     |     |     |     |     | ♦   | ♦   |     |     |     |
 | E'  |     |     |     |     |           | ♦   | ♦   |     |     |     |     |     |     |     | ♦   |
 | T   | ♦   | ♦   |     | ♦   | ♦         |     |     |     |     |     | ♦   | ♦   |     |     |     |
 | T'  |     |     |     |     |           |     |     | ♦   | ♦   |     |     |     |     |     | ♦   |
 | F   | ♦   | ♦   |     | ♦   | ♦         |     |     |     |     |     | ♦   | ♦   |     |     |     |
+| F'  |     |     |     |     |           |     |     |     |     | ♦   |     |     |     |     |     |
 | G   | ♦   | ♦   |     | ♦   | ♦         |     |     |     |     |     | ♦   | ♦   |     |     |     |
-| X   | ♦   | ♦   |     | ♦   | ♦         |     |     |     |     |     |     |     |     |     |     |
-| Y   |     |     |     | ♦   | ♦         |     |     |     |     |     |     |     |     |     |     |
+
   
 ### Suivants
-Soit S la source tel que : 
-S -> A$
+Soit S4 la source tel que : 
+S' -> S$
 |     | var | (   | )   | pi  | immediate | +   | -   | *   | /   | ^   | sin | cos | =   | ;   | $   |
 | --- | --- | --- | --- | --- | --------- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| A   |     |     |     |     |           |     |     |     |     |     |     |     |     | ♦   | ♦   |
+| S   |     |     | ♦   |     |           |     |     |     |     |     |     |     |     |     | ♦   |
+| A   |     |     | ♦   |     |           |     |     |     |     |     |     |     |     | ♦   |     |
 | E   |     |     | ♦   |     |           |     |     |     |     |     |     |     |     | ♦   |     |
-| E'  |     |     |     |     |           |     |     |     |     |     |     |     |     | ♦   |     |
-| T   |     |     |     |     |           | ♦   | ♦   |     |     |     |     |     |     |     |     |
-| T'  |     |     |     |     |           |     |     |     |     |     |     |     |     | ♦   |     |
-| F   |     |     | ♦   |     |           | ♦   | ♦   | ♦   | ♦   | ♦   |     |     |     |     |     |
-| G   |     | ♦   |     |     |           | ♦   | ♦   | ♦   | ♦   | ♦   | ♦   | ♦   |     |     |     |
-| X   |     |     | ♦   |     |           | ♦   | ♦   | ♦   | ♦   | ♦   |     |     | ♦   |     |     |
-| Y   |     |     | ♦   |     |           | ♦   | ♦   | ♦   | ♦   | ♦   |     |     |     |     |     |
+| E'  |     |     | ♦   |     |           |     |     |     |     |     |     |     |     | ♦   |     |
+| T   |     |     | ♦   |     |           | ♦   | ♦   |     |     |     |     |     |     | ♦   |     |
+| T'  |     |     | ♦   |     |           |     |     |     |     |     |     |     |     | ♦   |     |
+| F   |     |     | ♦   |     |           | ♦   | ♦   | ♦   | ♦   |     |     |     |     | ♦   |     |
+| F'  |     |     | ♦   |     |           |     |     |     |     |     |     |     |     | ♦   |     |
+| G   |     | ♦   | ♦   |     |           | ♦   | ♦   | ♦   | ♦   | ♦   |     |     |     | ♦   |     |
   
   ### Directeurs
-1. A -> X = E ; A
-2. A -> E
-3. A -> ε
-4. E -> T E'
-5. E'-> + T E'
-6. E'-> - T E'
-7. E'-> ε
-8. T -> F T'
-9. T'-> * F T'
-10. T'-> / F T'
-11. T'-> ε
-12. F -> G ^ F
-13. F -> G
-14. G -> sin G
-15. G -> cos G
-16. G -> X 
-17. G -> Y
-18. X -> var
-19. X -> (E)
-20. Y -> immediate
-21. Y -> pi
+0. S' - > S$
+1. S - > A;A 
+2. S -> ε
+3. A -> var = E
+4. A -> E
+5. E -> T E'
+6. E'-> + T E'
+7. E'-> - T E'
+8. E'-> ε
+9.  T -> F T'
+10. T'-> * F T'
+11. T'-> / F T'
+12. T'-> ε
+13. F -> G F'
+14. F' -> ^ G F'
+15. F' -> ε
+16. G -> sin G
+17. G -> cos G
+18. G -> var
+19. G -> (A)
+20. G -> pi
+21. G -> immediate
 
 Tableau des directeurs
 |       |  var  |   (   |   )   |  pi   | immediate |   +   |   -   |   *   |   /   |   ^   |  sin  |  cos  |   =   |   ;   |   $   |
 | :---: | :---: | :---: | :---: | :---: | :-------: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-|   A   |  1,2  |  1,2  |       |   2   |     2     |       |       |       |       |       |  1,2  |  1,2  |       |   3   |   3   |
-|   E   |   4   |   4   |       |   4   |     4     |       |       |       |       |       |   4   |   4   |       |       |       |
-|  E'   |       |       |       |       |           |   5   |   6   |       |       |       |       |       |       |   7   |       |
-|   T   |   8   |   8   |       |   8   |           |       |       |       |       |       |   8   |   8   |       |       |       |
-|  T'   |       |       |       |       |           |       |       |   9   |  10   |       |       |       |       |  11   |       |
-|   F   | 12,13 | 12,13 |       | 12,13 |   12,13   |       |       |       |       |       |       |       |       |       |       |
-|   G   |  16   |  16   |       |  16   |    17     |       |       |       |       |       |  14   |  15   |       |       |       |
-|   X   |  18   |  19   |       |  21   |    20     |       |       |       |       |       |       |       |       |       |       |
+|   S   |   1   |   1   |       |   1   |     1     |       |       |       |       |       |   1   |   1   |       |       |   2   |
+|   A   |  3,4  |   4   |       |   4   |     4     |       |       |       |       |       |   4   |   4   |       |       |       |
+|   E   |   5   |   5   |       |   5   |     5     |       |       |       |       |       |   5   |   5   |       |       |       |
+|  E'   |       |       |       |       |           |   6   |   7   |       |       |       |       |       |       |   8   |       |
+|   T   |   9   |   9   |       |   9   |           |       |       |       |       |       |   9   |   9   |       |       |       |
+|  T'   |       |       |       |       |           |       |       |  10   |  11   |       |       |       |       |  12   |       |
+|   F   |  13   |  13   |       |  13   |           |       |       |       |       |       |  13   |  13   |       |       |       |
+|  F'   |       |       |       |       |           |       |       |       |       |  14   |       |       |       |  15   |       |
+|   G   |  18   |  19   |       |  20   |    21     |       |       |       |       |       |  16   |  17   |       |       |       |
 
-Pour A & G, on regarde les cas exeptionnels pour lesquels il faut regarder 2 elements pour savoir quel directeur choisir
- * Pour A si il y a un = apres le X on choisis la règle 1 sinon 2 
- * Pour F si il y a un ^ apres le G on choisis la règle 12 sinon 13  
+Pour A on regarde les cas exeptionnels pour lesquels il faut regarder 2 elements pour savoir quel directeur choisir
+ * Pour A si il y a un = apres le var on choisis la règle 3 sinon 4 
+ 
 
 
 ## Difficultés rencontrées
-
-Implementer les ambiguïtées avec A et F 
+ 
 
 ## Remarques éventuelles

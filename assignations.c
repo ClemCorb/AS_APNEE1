@@ -55,20 +55,7 @@ void print_symbols() {
 
 /************** Grammaire *****************/
 void analyse(){
-    while (currentToken() != NULL)
-    {
-        switch (currentToken()->type)
-        {
-        case PLUS:
-            /* code */
-            break;
 
-        default:
-            break;
-       }
-
-        next();
-    }
 }
 
 /*********** PROGRAMME PRINCIPAL ************/
