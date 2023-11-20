@@ -23,24 +23,26 @@ Je vous demande de rédiger votre compte rendu dans ce fichier que vous rendrez 
 Donnez ici les grammaires que vous avez utilisées pour résoudre votre problème.
 ### G0
 A -> X = E ;  A | E | ε  
-E -> X = E | E + T | E - T | T 
+E -> E + T | E - T | T 
 T -> T * F | T / F | F   
 F -> G ^ F | G 
 G -> sin G | cos G | X 
 
-X -> var | (E) | immediate | pi  
+X -> var | (A)
+Y -> immediate | pi  
  
 
 ### G1 sans récursivité à Gauche (sauf pour A)
 A -> X = E ; A | E | ε  
-E -> X = E | T E'  
+E -> T E'  
 E'-> + T E' | - T E' | ε  
 T -> F T'  
 T'-> * F T' | / F T' | ε 
 F -> G ^ F | G 
 G -> sin G | cos G | X   
 
-X -> var | (E) | immediate | pi  
+X -> var | (A) 
+Y -> immediate | pi  
 
 
 ## Table LL1 calculée
@@ -49,7 +51,7 @@ Donnez la table LL1 de votre grammaire.
 ### Premiers  
 |     | var | (   | )   | pi  | immediate | +   | -   | *   | /   | ^   | sin | cos | =   | ;   | ε   |
 | --- | --- | --- | --- | --- | --------- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| A   | ♦   | ♦   |     | ♦   | ♦         |     |     |     |     |     | ♦   | ♦   |     |     | ♦   |
+| A   | ♦   | ♦   |     |     |           |     |     |     |     |     | ♦   | ♦   |     |     | ♦   |
 | E   | ♦   | ♦   |     | ♦   | ♦         |     |     |     |     |     | ♦   | ♦   |     |     |     |
 | E'  |     |     |     |     |           | ♦   | ♦   |     |     |     |     |     |     |     | ♦   |
 | T   | ♦   | ♦   |     | ♦   | ♦         |     |     |     |     |     | ♦   | ♦   |     |     |     |
@@ -57,6 +59,7 @@ Donnez la table LL1 de votre grammaire.
 | F   | ♦   | ♦   |     | ♦   | ♦         |     |     |     |     |     | ♦   | ♦   |     |     |     |
 | G   | ♦   | ♦   |     | ♦   | ♦         |     |     |     |     |     | ♦   | ♦   |     |     |     |
 | X   | ♦   | ♦   |     | ♦   | ♦         |     |     |     |     |     |     |     |     |     |     |
+| Y   |     |     |     | ♦   | ♦         |     |     |     |     |     |     |     |     |     |     |
   
 ### Suivants
 Soit S la source tel que : 
@@ -68,51 +71,53 @@ S -> A$
 | E'  |     |     |     |     |           |     |     |     |     |     |     |     |     | ♦   |     |
 | T   |     |     |     |     |           | ♦   | ♦   |     |     |     |     |     |     |     |     |
 | T'  |     |     |     |     |           |     |     |     |     |     |     |     |     | ♦   |     |
-| F   |     |     |     |     |           |     |     | ♦   | ♦   |     |     |     |     |     |     |
-| G   |     | ♦   |     |     |           |     |     |     |     | ♦   | ♦   | ♦   |     |     |     |
-| X   |     |     |     |     |           |     |     |     |     |     |     |     | ♦   |     |     |
+| F   |     |     | ♦   |     |           | ♦   | ♦   | ♦   | ♦   | ♦   |     |     |     |     |     |
+| G   |     | ♦   |     |     |           | ♦   | ♦   | ♦   | ♦   | ♦   | ♦   | ♦   |     |     |     |
+| X   |     |     | ♦   |     |           | ♦   | ♦   | ♦   | ♦   | ♦   |     |     | ♦   |     |     |
+| Y   |     |     | ♦   |     |           | ♦   | ♦   | ♦   | ♦   | ♦   |     |     |     |     |     |
   
   ### Directeurs
 1. A -> X = E ; A
 2. A -> E
 3. A -> ε
-4. E -> X = E
-5. E -> T E'
-6. E'-> + T E'
-7. E'-> - T E'
-8. E'-> ε
-9. T -> F T'
-10. T'-> * F T'
-11. T'-> / F T'
-12. T'-> ε
-13. F -> G ^ F
-14. F -> G
-15. G -> sin G
-16. G -> cos G
-17. G -> X
+4. E -> T E'
+5. E'-> + T E'
+6. E'-> - T E'
+7. E'-> ε
+8. T -> F T'
+9. T'-> * F T'
+10. T'-> / F T'
+11. T'-> ε
+12. F -> G ^ F
+13. F -> G
+14. G -> sin G
+15. G -> cos G
+16. G -> X 
+17. G -> Y
 18. X -> var
 19. X -> (E)
-20. X -> immediate
-21. X -> pi
+20. Y -> immediate
+21. Y -> pi
 
-
+Tableau des directeurs
 |       |  var  |   (   |   )   |  pi   | immediate |   +   |   -   |   *   |   /   |   ^   |  sin  |  cos  |   =   |   ;   |   $   |
 | :---: | :---: | :---: | :---: | :---: | :-------: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-|   A   |   1,2 |       |       |       |           |       |       |       |       |       |       |       |       |       |       |
-|   E   |       |       |       |       |           |       |       |       |       |       |       |       |       |       |       |
-|  E'   |       |       |       |       |           |       |       |       |       |       |       |       |       |       |       |
-|   T   |       |       |       |       |           |       |       |       |       |       |       |       |       |       |       |
-|  T'   |       |       |       |       |           |       |       |       |       |       |       |       |       |       |       |
-|   F   |       |       |       |       |           |       |       |       |       |       |       |       |       |       |       |
-|   G   |       |       |       |       |           |       |       |       |       |       |       |       |       |       |       |
-|   X   |       |       |       |       |           |       |       |       |       |       |       |       |       |       |       |
+|   A   |  1,2  |  1,2  |       |   2   |     2     |       |       |       |       |       |  1,2  |  1,2  |       |   3   |   3   |
+|   E   |   4   |   4   |       |   4   |     4     |       |       |       |       |       |   4   |   4   |       |       |       |
+|  E'   |       |       |       |       |           |   5   |   6   |       |       |       |       |       |       |   7   |       |
+|   T   |   8   |   8   |       |   8   |           |       |       |       |       |       |   8   |   8   |       |       |       |
+|  T'   |       |       |       |       |           |       |       |   9   |  10   |       |       |       |       |  11   |       |
+|   F   | 12,13 | 12,13 |       | 12,13 |   12,13   |       |       |       |       |       |       |       |       |       |       |
+|   G   |  16   |  16   |       |  16   |    17     |       |       |       |       |       |  14   |  15   |       |       |       |
+|   X   |  18   |  19   |       |  21   |    20     |       |       |       |       |       |       |       |       |       |       |
+
+Pour A & G, on regarde les cas exeptionnels pour lesquels il faut regarder 2 elements pour savoir quel directeur choisir
+ * Pour A si il y a un = apres le X on choisis la règle 1 sinon 2 
+ * Pour F si il y a un ^ apres le G on choisis la règle 12 sinon 13  
 
 
 ## Difficultés rencontrées
 
-Si vous en avez eu...
+Implementer les ambiguïtées avec A et F 
 
 ## Remarques éventuelles
-
-
-
