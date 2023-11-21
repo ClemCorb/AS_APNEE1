@@ -93,7 +93,6 @@ S -> A$
 20. X -> immediate
 21. X -> pi
 
-Cela devrait être plus lisible sous forme de liste numérotée en Markdown. Si tu as d'autres demandes ou si quelque chose n'est pas clair, n'hésite pas !
 
 |       |  var  |   (   |   )   |  pi   | immediate |   +   |   -   |   *   |   /   |   ^   |  sin  |  cos  |   =   |   ;   |   $   |
 | :---: | :---: | :---: | :---: | :---: | :-------: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
