@@ -76,7 +76,7 @@ S' -> S$
   
   ### Directeurs
 0. S' - > S$
-1. S - > A;A 
+1. S - > A;S 
 2. S -> ε
 3. A -> var = E
 4. A -> E
