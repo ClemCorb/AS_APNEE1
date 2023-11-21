@@ -54,7 +54,9 @@ void print_symbols() {
 }
 
 /************** Grammaire *****************/
+void analyse(){
 
+}
 
 /*********** PROGRAMME PRINCIPAL ************/
 int main(int argc, char *argv[]) {
